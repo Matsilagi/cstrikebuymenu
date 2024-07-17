@@ -225,7 +225,7 @@ local function ReloadTacRPWeapons()
 			local priceperround = AmmoItem.Price/AmmoItem.AmountToGive
 
 			table.insert(Hippie.Trivia, {
-				"PRICE PER CLIP", ": $" .. priceperround*weptable.ClipSize,
+				"PRICE PER CLIP", ": $" .. math.Round(priceperround*weptable.ClipSize),
 			})
 		end
 		
