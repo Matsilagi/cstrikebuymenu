@@ -353,7 +353,6 @@ csBuyMenu.Categories = {
 		Name = "ATTACHMENTS",
 		Title = "BUY WEAPON ATTACHMENTS",
 		Items = {
-			"pistol",
 		},
 	},
 }
@@ -445,13 +444,18 @@ if CLIENT then
 		Scroller:SetSize( s(160+16+16), s(16+16+20+(16+20)*6) )
 		Scroller:SetPos( s(48), s(48+48) )
 		Scroller.pnlCanvas:DockPadding( s(16), s(16), s(16), s(16) )
-		Scroller.VBar:SetWide( s(3) )
+		Scroller.VBar:SetWide( 6 )
 		Scroller.VBar:SetHideButtons( true )
 		
 		function Scroller.VBar:Paint(w, h) return end
 		function Scroller.VBar.btnGrip:Paint(w, h)
 			surface.SetDrawColor( Color_Accent_3 )
-			surface.DrawRect( 0, 3, 2, h-6 )
+			surface.DrawRect( 0, 3, 3, h-6 )
+			surface.SetDrawColor( Color_Accent_1 )
+			surface.DrawRect( 0, 3, 1, h-6 )
+			surface.DrawRect( 3, 3, 1, h-6 )
+			surface.DrawRect( 1, 3, 2, 1 )
+			surface.DrawRect( 1, h-3-1, 2, 1 )
 		end
 		function Scroller:PerformLayoutInternal()
 			local Tall = self.pnlCanvas:GetTall()
