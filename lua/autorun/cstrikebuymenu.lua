@@ -1622,6 +1622,8 @@ csBuyMenu.Categories = {
 			"snip_scout",
 			"rifle_gry",
 			"rifle_asval",
+			"rifle_ma37",
+			"rifle_ma37_c",
 			"snip_m392",
 			"snip_carbine",
 			"snip_srs99",
@@ -1642,6 +1644,7 @@ csBuyMenu.Categories = {
 			"shot_aa12",
 			"shot_winchester",
 			"shot_m45",
+			"heavy_m41",
 		},
 	},
 	{
