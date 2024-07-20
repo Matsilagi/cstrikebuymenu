@@ -1679,7 +1679,7 @@ csBuyMenu.Categories = {
 			"equip_balshield",
 			"equip_riotshield",
 			"equip_medishot",
-			"equip_dz_medishot",
+			--"equip_dz_medishot",
 			"tool_axe",
 			"tool_hammer",
 			"tool_spanner"
