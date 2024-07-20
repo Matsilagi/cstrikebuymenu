@@ -1709,8 +1709,14 @@ if CLIENT then
 	local function s( inp )
 		return math.floor( inp * ( ScrH() / 512 ) )
 	end
-	local sizes = { 24, 18, 16, 10, 8 }
+	local sizes = { 32, 24, 18, 16, 10, 8 }
 	for _, size in ipairs( sizes ) do
+		surface.CreateFont("CSBM_Logo_"..size, {
+			font = "Coolvetica",
+			extended = false,
+			size = s(size),
+			weight = 500,
+		})
 		surface.CreateFont("CSBM_"..size, {
 			font = "Verdana",
 			extended = false,
@@ -1778,6 +1784,7 @@ if CLIENT then
 			surface.SetDrawColor( Color_Accent_1 )
 			surface.DrawRect( s(16), s(16), s(32), s(32) )
 
+			draw.SimpleText( "g", "CSBM_Logo_32", s(28.5-4), s(6+7), Color_Dark_1)
 			draw.SimpleText( "BUY MENU", "CSBM_18_B", s(64-4), s(16+7), Color_Accent_1)
 			draw.SimpleText( "YOU HAVE $" .. money, "CSBM_8", s(64-4+128), s(16+12), Color_Accent_1)
 			draw.SimpleText( "SHOP BY CATEGORY", "CSBM_8", s(48 + (160+16+16)/2), s(64+14), Color_Accent_1, TEXT_ALIGN_CENTER)
