@@ -18,7 +18,8 @@ NpcBlacklist = {
 	"npc_pigeon",
 	"npc_seagull",
 	"npc_antlion_grub",
-	"npc_monk"
+	"npc_monk",
+	"monster_cockroach"
 }
 
 -- Set money when the player spawns
