@@ -62,6 +62,7 @@ csBuyMenu.Items = {
 	},
 	["ammo_bundle"] = {
 		NiceName = "Ammunition Bundle",
+		Icon = Material("entities/swcs_ammo_generic.png","mips smooth"),
 		Buy = function(player, item, class)
 			local wep = player:GetActiveWeapon()
 			local wepammo = wep:GetPrimaryAmmoType() or nil
