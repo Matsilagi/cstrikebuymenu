@@ -22,6 +22,7 @@ end
 csBuyMenu.Items = {
 	["kevlar"] = {
 		NiceName = "Kevlar Vest",
+		Icon = Material("entities/swcs_kevlar.png", "mips smooth"),
 		Buy = function(player, item, class)
 			player:SetArmor(100)
 			return true -- successful, deduct money
@@ -37,6 +38,7 @@ csBuyMenu.Items = {
 	},
 	["kev_helm"] = {
 		NiceName = "Kevlar Vest + Helmet",
+		Icon = Material("entities/swcs_helmet_kevlar.png", "mips smooth"),
 		Buy = function(player, item, class)
 			local curmoney = player:GetNW2Int("cstrike_money",0)
 			if !player:HasHelmet() then
@@ -1000,6 +1002,7 @@ csBuyMenu.Items = {
 	},
 	["equip_defuse"] = {
 		NiceName = "Defusal Kit",
+		Icon = Material("entities/swcs_defuser.png", "mips smooth"),
 		Buy = function(player, item, class)
 			player:GiveDefuser()
 			return true -- successful, deduct money
