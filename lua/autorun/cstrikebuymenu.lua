@@ -2018,7 +2018,12 @@ if CLIENT then
 		end
 	end
 	concommand.Add("cs_buymenu", function()
-		csOpenBuyMenu()
+		local ply = LocalPlayer()
+		if GAMEMODE_NAME == "zombiesurvival" and ply:Team() == TEAM_UNDEAD then
+			ply:ChatPrint("Zombies can't buy weapons.")
+		else
+			csOpenBuyMenu()
+		end
 	end)
 end
 
