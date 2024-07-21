@@ -104,31 +104,34 @@ csBuyMenu.Items = {
 			
 				player:SetAmmo(ammotogive2, wepammo2)
 			end
+			print(player:GetActiveWeapon():GetPrimaryAmmoType())
 			return true
 		end,
 		CanBuy = function(player, item, class)
 			local weapblacklist = {
-				"weapon_swcs_breachcharge",
-				"weapon_dz_bumpmine",
-				"weapon_swcs_healthshot",
-				"weapon_dz_healthshot",
-				"weapon_swcs_tagrenade",
-				"weapon_swcs_taser",
-				"weapon_swcs_smokegrenade",
-				"weapon_swcs_snowball",
-				"weapon_swcs_incgrenade",
-				"weapon_swcs_molotov",
-				"weapon_swcs_hegrenade",
-				"weapon_swcs_flashbang",
-				"weapon_swcs_decoy",
-				"weapon_swcs_c4",
+				"swcs_flashbang",
+				"swcs_hegrenade",
+				"swcs_smokegrenade",
+				"swcs_firegrenade",
+				"swcs_snowball",
+				"swcs_tagrenade",
+				"swcs_healthshot",
+				"swcs_decoygrenade",
+				"swcs_breachcharge",
+				"dz_bumpmine",
+				"dz_healthshot"
 			}
-			return !player:GetActiveWeapon():GetPrimaryAmmoType() != nil and !table.HasValue( weapblacklist , player:GetActiveWeapon() ) 
+			if table.HasValue( weapblacklist , !player:GetActiveWeapon():GetPrimaryAmmoType() ) or player:GetActiveWeapon():GetPrimaryAmmoType() == -1 then
+				ply:ChatPrint("You can't refill this type of weapon.")
+				return false
+			else 
+				return true 
+			end
 		end,
 		Price = 800,
 		Trivia = {
 			{ "Price", ": $800" },
-			{ "Fully refills currently held weapon", "" },
+			{ "Fully refills currently held weapon. Doesn't work with Grenades or Equipment.", "" },
 		},
 	},
 	["pist_hkp2000"] = {
