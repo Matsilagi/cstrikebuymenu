@@ -2105,5 +2105,5 @@ if SERVER then
 			ply:ChatPrint("Purchase complete, you haven't been charged")
 			ply:EmitSound(Sound("buymenu/buy.wav"))
 		end
-	end
+	end)
 end
