@@ -772,6 +772,18 @@ csBuyMenu.Items = {
 		},	
 		Price = 1100,	
 	},
+	["shot_xm1014"] = {
+		NiceName = "XM1014",
+		Class = "weapon_swcs_xm1014",
+		Trivia = {
+			{"Price", ": $2000"},
+			{"Country of Origin", ": Italy"},
+			{"Caliber", ": 12 Gauge Cartridge"},
+			{"Tube Capacity", ": 7 Rounds"},
+			{"The XM1014 is a powerful fully automatic shotgun that justifies its heftier price tag with the ability to paint a room with lead fast.", ""},
+		},	
+		Price = 2000,
+	},
 	["mach_m249"] = {
 		NiceName = "M249",
 		Class = "weapon_swcs_m249",
@@ -2046,50 +2058,52 @@ if CLIENT then
 	end)
 end
 
-concommand.Add("cs_buy", function( ply, cmd, args )
-	if CLIENT then return end
-	if !ply or !ply:IsValid() then return end
+if SERVER then
+	concommand.Add("cs_buy", function( ply, cmd, args )
+		if CLIENT then return end
+		if !ply or !ply:IsValid() then return end
 
-	local Classname = args[1]
-	local Classinfo = csBuyMenu.Items[Classname]
-	if !Classinfo then return end
-	local plymoney = ply:GetNW2Int("cstrike_money",0)
-	if Classinfo.Price > plymoney then ply:ChatPrint("Not enough funds to buy this item!") ply:EmitSound(Sound("buymenu/deny.wav")) return end
+		local Classname = args[1]
+		local Classinfo = csBuyMenu.Items[Classname]
+		if !Classinfo then return end
+		local plymoney = ply:GetNW2Int("cstrike_money",0)
+		if Classinfo.Price > plymoney then ply:ChatPrint("Not enough funds to buy this item!") ply:EmitSound(Sound("buymenu/deny.wav")) return end
 
-	local DeductMoney = true
-	local finalmoney
+		local DeductMoney = true
+		local finalmoney
 
-	if Classinfo.CanBuy then
-		if !Classinfo.CanBuy( ply, Classinfo, Classname ) then
-			ply:ChatPrint("You can't buy " .. Classname .. ".")
-			ply:EmitSound(Sound("buymenu/deny.wav"))
-			return
-		end
-	else
-		if ply:HasWeapon(Classinfo.Class) then
-			ply:ChatPrint("You already own this weapon.")
-			ply:EmitSound(Sound("buymenu/deny.wav"))
-			return
-		end
-	end
-	if !Classinfo.Buy then
-		ply:Give(Classinfo.Class)
-		ply:SelectWeapon(Classinfo.Class)
-	else
-		DeductMoney = Classinfo.Buy( ply, Classinfo, Classname )
-	end
-
-	if DeductMoney then
-		if isnumber(DeductMoney) then
+		if Classinfo.CanBuy then
+			if !Classinfo.CanBuy( ply, Classinfo, Classname ) then
+				ply:ChatPrint("You can't buy " .. Classname .. ".")
+				ply:EmitSound(Sound("buymenu/deny.wav"))
+				return
+			end
 		else
-			DeductMoney = Classinfo.Price
-			finalmoney = ply:GetNW2Int("cstrike_money",0) - DeductMoney
-			ply:SetNW2Int("cstrike_money",finalmoney)
+			if ply:HasWeapon(Classinfo.Class) then
+				ply:ChatPrint("You already own this weapon.")
+				ply:EmitSound(Sound("buymenu/deny.wav"))
+				return
+			end
 		end
-		ply:ChatPrint("Purchase complete, deducted $" .. DeductMoney .. "")
-		ply:EmitSound(Sound("buymenu/buy.wav"))
-	else
-		ply:ChatPrint("Purchase complete, you haven't been charged")
-		ply:EmitSound(Sound("buymenu/buy.wav"))
+		if !Classinfo.Buy then
+			ply:Give(Classinfo.Class)
+			ply:SelectWeapon(Classinfo.Class)
+		else
+			DeductMoney = Classinfo.Buy( ply, Classinfo, Classname )
+		end
+
+		if DeductMoney then
+			if isnumber(DeductMoney) then
+			else
+				DeductMoney = Classinfo.Price
+				finalmoney = ply:GetNW2Int("cstrike_money",0) - DeductMoney
+				ply:SetNW2Int("cstrike_money",finalmoney)
+			end
+			ply:ChatPrint("Purchase complete, deducted $" .. DeductMoney .. "")
+			ply:EmitSound(Sound("buymenu/buy.wav"))
+		else
+			ply:ChatPrint("Purchase complete, you haven't been charged")
+			ply:EmitSound(Sound("buymenu/buy.wav"))
+		end
 	end
-end)
+end
