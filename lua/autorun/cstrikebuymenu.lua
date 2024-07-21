@@ -123,7 +123,7 @@ csBuyMenu.Items = {
 				"weapon_swcs_decoy",
 				"weapon_swcs_c4",
 			}
-			return !table.HasValue( weapblacklist , player:GetActiveWeapon() ) and !player:GetActiveWeapon():GetPrimaryAmmoType() != nil
+			return !player:GetActiveWeapon():GetPrimaryAmmoType() != nil and !table.HasValue( weapblacklist , player:GetActiveWeapon() ) 
 		end,
 		Price = 800,
 		Trivia = {
@@ -2033,8 +2033,8 @@ if CLIENT then
 	end
 	concommand.Add("cs_buymenu", function()
 		local ply = LocalPlayer()
-		if GAMEMODE_NAME == "zombiesurvival" and ply:Team() == TEAM_UNDEAD then
-			ply:ChatPrint("Zombies can't buy weapons.")
+		if GAMEMODE_NAME == "zombiesurvival" and ply:Team() != TEAM_HUMAN then
+			ply:ChatPrint("This team can't buy weapons.")
 		else
 			csOpenBuyMenu()
 		end
