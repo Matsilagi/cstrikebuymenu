@@ -130,7 +130,7 @@ for AmmoName, AmmoData in pairs( QuickAmmo ) do
 		NiceName = AmmoData.Name,
 		CanBuy = Ammo_CanBuy,
 		Buy = Ammo_Buy,
-		AmmoType = i,
+		AmmoType = AmmoName,
 		AmountToGive = AmmoData.Amount,
 		AmmoMaximum = AmmoData.Max,
 		Price = AmmoData.Price,
@@ -679,41 +679,43 @@ if CLIENT then
 	csOpenBuyMenu()
 end
 
-concommand.Add("cs_buy", function( ply, cmd, args )
-	if CLIENT then return end
-	if !ply or !ply:IsValid() then return end
+if SERVER then
+	concommand.Add("cs_buy", function( ply, cmd, args )
+		if !ply or !ply:IsValid() then return end
+		--if CLIENT then print( ply, "trying to buy on wrong realm" ) return end
 
-	local Classname = args[1]
-	local Classinfo = csBuyMenu.Items[Classname]
-	if !Classinfo then return end
+		local Classname = args[1]
+		local Classinfo = csBuyMenu.Items[Classname]
+		if !Classinfo then return end
 
-	local DeductMoney = true
+		local DeductMoney = true
 
-	if Classinfo.CanBuy then
-		if !Classinfo.CanBuy( ply, Classinfo, Classname ) then
-			ply:ChatPrint("You can't buy " .. Classname .. ".")
-			return
-		end
-	else
-		if ply:HasWeapon(Classinfo.Class) then
-			ply:ChatPrint("You already own this weapon.")
-			return
-		end
-	end
-	if !Classinfo.Buy then
-		ply:Give(Classinfo.Class)
-		ply:SelectWeapon(Classinfo.Class)
-	else
-		DeductMoney = Classinfo.Buy( ply, Classinfo, Classname )
-	end
-
-	if DeductMoney then
-		if isnumber(DeductMoney) then
+		if Classinfo.CanBuy then
+			if !Classinfo.CanBuy( ply, Classinfo, Classname ) then
+				ply:ChatPrint("You can't buy " .. Classname .. ".")
+				return
+			end
 		else
-			DeductMoney = Classinfo.Price
+			if ply:HasWeapon(Classinfo.Class) then
+				ply:ChatPrint("You already own this weapon.")
+				return
+			end
 		end
-		ply:ChatPrint("Purchase complete, deducted $" .. DeductMoney .. "")
-	else
-		ply:ChatPrint("Purchase complete, you haven't been charged")
-	end
-end)
+		if !Classinfo.Buy then
+			ply:Give(Classinfo.Class)
+			ply:SelectWeapon(Classinfo.Class)
+		else
+			DeductMoney = Classinfo.Buy( ply, Classinfo, Classname )
+		end
+
+		if DeductMoney then
+			if isnumber(DeductMoney) then
+			else
+				DeductMoney = Classinfo.Price
+			end
+			ply:ChatPrint("Purchase complete, deducted $" .. DeductMoney .. "")
+		else
+			ply:ChatPrint("Purchase complete, you haven't been charged")
+		end
+	end)
+end
