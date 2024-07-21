@@ -104,25 +104,27 @@ csBuyMenu.Items = {
 			
 				player:SetAmmo(ammotogive2, wepammo2)
 			end
-			print(player:GetActiveWeapon():GetPrimaryAmmoType())
 			return true
 		end,
 		CanBuy = function(player, item, class)
 			local weapblacklist = {
-				"swcs_flashbang",
-				"swcs_hegrenade",
-				"swcs_smokegrenade",
-				"swcs_firegrenade",
-				"swcs_snowball",
-				"swcs_tagrenade",
-				"swcs_healthshot",
-				"swcs_decoygrenade",
-				"swcs_breachcharge",
-				"dz_bumpmine",
-				"dz_healthshot"
+				["weapon_swcs_breachcharge"] = true,
+				["weapon_dz_bumpmine"] = true,
+				["weapon_swcs_healthshot"] = true,
+				["weapon_dz_healthshot"] = true,
+				["weapon_swcs_tagrenade"] = true,
+				["weapon_swcs_taser"] = true,
+				["weapon_swcs_smokegrenade"] = true,
+				["weapon_swcs_snowball"] = true,
+				["weapon_swcs_incgrenade"] = true,
+				["weapon_swcs_molotov"] = true,
+				["weapon_swcs_hegrenade"] = true,
+				["weapon_swcs_flashbang"] = true,
+				["weapon_swcs_decoy"] = true,
+				["weapon_swcs_c4"] = true,
 			}
-			if table.HasValue( weapblacklist , !player:GetActiveWeapon():GetPrimaryAmmoType() ) or player:GetActiveWeapon():GetPrimaryAmmoType() == -1 then
-				ply:ChatPrint("You can't refill this type of weapon.")
+			
+			if player:GetActiveWeapon():GetPrimaryAmmoType() == -1 or weapblacklist[player:GetActiveWeapon():GetClass()] == true then
 				return false
 			else 
 				return true 
