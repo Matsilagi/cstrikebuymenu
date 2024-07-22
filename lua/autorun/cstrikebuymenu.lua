@@ -60,6 +60,22 @@ csBuyMenu.Items = {
 			{ "Protects your head and torso against projectiles.", "" },
 		},
 	},
+	["equip_defuse"] = {
+		NiceName = "Defusal Kit",
+		Icon = Material("entities/swcs_defuser.png", "mips smooth"),
+		Buy = function(player, item, class)
+			player:GiveDefuser()
+			return true -- successful, deduct money
+		end,
+		CanBuy = function(player, item, class)
+			return not player:HasDefuser()
+		end,
+		Price = 400,
+		Trivia = {
+			{ "Price", ": $400" },
+			{ "A kit with a few defusal tools. Includes a code-cracker and a few common workshop tools which help with all sorts of explosive devices.", "" },
+		},
+	},
 	["ammo_bundle"] = {
 		NiceName = "Ammunition Bundle",
 		Icon = Material("entities/swcs_ammo_generic.png","mips smooth"),
@@ -133,7 +149,55 @@ csBuyMenu.Items = {
 		Price = 800,
 		Trivia = {
 			{ "Price", ": $800" },
-			{ "Fully refills currently held weapon. Doesn't work with Grenades or Equipment.", "" },
+			{ "Fully refills currently held weapon. Doesn't apply for Grenades or Equipment.", "" },
+		},
+	},
+	["ammo_pack"] = {
+		NiceName = "Ammunition Package",
+		Icon = Material("entities/dz_ammobox_single.png","mips smooth"),
+		Buy = function(player, item, class)
+			local wep = player:GetActiveWeapon()
+			local wepammo = wep:GetPrimaryAmmoType() or nil
+			local maxclip = wep:GetMaxClip1()
+			local mag1 = wep:Clip1()
+			local ammotogive = 0
+			if wepammo != false or wepammo != nil then
+				player:GiveAmmo(math.min(player:GetActiveWeapon().Primary.DefaultClip, player:GetActiveWeapon().Primary.DefaultClip - (player:GetAmmoCount(wepammo) + mag1)), wepammo, true )
+			end
+			return true
+		end,
+		CanBuy = function(player, item, class)
+			local weapblacklist = {
+				["weapon_swcs_breachcharge"] = true,
+				["weapon_dz_bumpmine"] = true,
+				["weapon_swcs_healthshot"] = true,
+				["weapon_dz_healthshot"] = true,
+				["weapon_swcs_tagrenade"] = true,
+				["weapon_swcs_taser"] = true,
+				["weapon_swcs_smokegrenade"] = true,
+				["weapon_swcs_snowball"] = true,
+				["weapon_swcs_incgrenade"] = true,
+				["weapon_swcs_molotov"] = true,
+				["weapon_swcs_hegrenade"] = true,
+				["weapon_swcs_flashbang"] = true,
+				["weapon_swcs_decoy"] = true,
+				["weapon_swcs_c4"] = true,
+			}
+			
+			local wep = player:GetActiveWeapon()
+			local wepammo = wep:GetPrimaryAmmoType() or nil
+			local mag1 = wep:Clip1()
+			
+			if player:GetActiveWeapon():GetPrimaryAmmoType() == -1 or weapblacklist[player:GetActiveWeapon():GetClass()] == true or player:GetAmmoCount(wepammo) + mag1 >= player:GetActiveWeapon().Primary.DefaultClip then
+				return false
+			else 
+				return true 
+			end
+		end,
+		Price = 400,
+		Trivia = {
+			{ "Price", ": $400" },
+			{ "Refills the currently held weapon partially.", "" },
 		},
 	},
 	["dz_exojump"] = {
@@ -1052,22 +1116,6 @@ csBuyMenu.Items = {
 		},
 		Price = 16000,			
 	},
-	["equip_defuse"] = {
-		NiceName = "Defusal Kit",
-		Icon = Material("entities/swcs_defuser.png", "mips smooth"),
-		Buy = function(player, item, class)
-			player:GiveDefuser()
-			return true -- successful, deduct money
-		end,
-		CanBuy = function(player, item, class)
-			return not player:HasDefuser()
-		end,
-		Price = 400,
-		Trivia = {
-			{ "Price", ": $400" },
-			{ "A kit with a few defusal tools. Includes a code-cracker and a few common workshop tools which help with all sorts of explosive devices.", "" },
-		},
-	},
 	["misc_snowball"] = {
 		NiceName = "Snowball",
 		Class = "weapon_swcs_snowball",
@@ -1742,6 +1790,7 @@ csBuyMenu.Categories = {
 	Name = "AMMO",
 		Title = "BUY AMMUNITION (AID)",
 		Items = {
+			"ammo_pack",
 			"ammo_bundle",
 		},
 	},
