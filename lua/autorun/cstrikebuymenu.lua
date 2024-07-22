@@ -1012,11 +1012,11 @@ csBuyMenu.Items = {
 		NiceName = "C4 Explosive",
 		Class = "weapon_swcs_c4",
 		Trivia = {
-			{"Price", ": $500"},
+			{"Price", ": $16000"},
 			{"Country of Origin", ": ???"},
 			{"A homemade time-detonated payload of explosives. Upon activation, it will detonate after 30 seconds, unless defused.", ""},
 		},
-		Price = 500,			
+		Price = 16000,			
 	},
 	["equip_defuse"] = {
 		NiceName = "Defusal Kit",
