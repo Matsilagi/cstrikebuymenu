@@ -57,7 +57,7 @@ csBuyMenu.Items = {
 		Price = 1000,
 		Trivia = {
 			{ "Price", ": $1000" },
-			{ "Protects your head and torso against projectiles", "" },
+			{ "Protects your head and torso against projectiles.", "" },
 		},
 	},
 	["ammo_bundle"] = {
@@ -134,6 +134,40 @@ csBuyMenu.Items = {
 		Trivia = {
 			{ "Price", ": $800" },
 			{ "Fully refills currently held weapon. Doesn't work with Grenades or Equipment.", "" },
+		},
+	},
+	["dz_exojump"] = {
+		NiceName = "Exo-Jump Boots",
+		Icon = Material("entities/dz_pickup_exojump.png", "mips smooth"),
+		Buy = function(player, item, class)
+			player:DZ_ENTS_GiveEquipment(DZ_ENTS_EQUIP_EXOJUMP)
+			DZ_ENTS:Hint(player, 11)
+			return true -- successful, deduct money
+		end,
+		CanBuy = function(player, item, class)
+			if player:DZ_ENTS_HasEquipment(DZ_ENTS_EQUIP_EXOJUMP) then return false else return true end
+		end,
+		Price = 10000,
+		Trivia = {
+			{ "Price", ": $10000" },
+			{ "Significantly increases jump height.", "" },
+		},
+	},
+	["dz_parachute"] = {
+		NiceName = "Parachute",
+		Icon = Material("entities/dz_pickup_parachute.png", "mips smooth"),
+		Buy = function(player, item, class)
+			player:DZ_ENTS_GiveEquipment(DZ_ENTS_EQUIP_PARACHUTE)
+			DZ_ENTS:Hint(player, 10)
+			return true -- successful, deduct money
+		end,
+		CanBuy = function(player, item, class)
+			if player:DZ_ENTS_HasEquipment(DZ_ENTS_EQUIP_PARACHUTE) then return false else return true end
+		end,
+		Price = 12000,
+		Trivia = {
+			{ "Price", ": $12000" },
+			{ "Can be deployed when falling to prevent fall damage.", "" },
 		},
 	},
 	["pist_hkp2000"] = {
@@ -1696,6 +1730,8 @@ csBuyMenu.Categories = {
 			"equip_balshield",
 			"equip_riotshield",
 			"equip_medishot",
+			"dz_exojump",
+			"dz_parachute",
 			--"equip_dz_medishot",
 			"tool_axe",
 			"tool_hammer",
