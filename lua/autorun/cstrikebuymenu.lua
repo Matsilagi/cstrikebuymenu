@@ -1489,7 +1489,7 @@ for AmmoName, AmmoData in pairs( QuickAmmo ) do
 		NiceName = AmmoData.Name,
 		CanBuy = Ammo_CanBuy,
 		Buy = Ammo_Buy,
-		AmmoType = i,
+		AmmoType = AmmoName,
 		AmountToGive = AmmoData.Amount,
 		AmmoMaximum = AmmoData.Max,
 		Price = AmmoData.Price,
