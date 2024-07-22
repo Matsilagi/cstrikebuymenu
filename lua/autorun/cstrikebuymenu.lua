@@ -197,7 +197,7 @@ csBuyMenu.Items = {
 		Price = 400,
 		Trivia = {
 			{ "Price", ": $400" },
-			{ "Refills the currently held weapon partially.", "" },
+			{ "Refills the currently held weapon partially. Doesn't apply for Grenades or Equipment.", "" },
 		},
 	},
 	["dz_exojump"] = {
@@ -1118,6 +1118,7 @@ csBuyMenu.Items = {
 	},
 	["misc_snowball"] = {
 		NiceName = "Snowball",
+		Icon = Material("entities/swcs_snowball_pile.png", "mips smooth"),
 		Class = "weapon_swcs_snowball",
 		Trivia = {
 			{"Price", ": $25"},
