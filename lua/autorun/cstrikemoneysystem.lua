@@ -2,8 +2,11 @@ if CLIENT then
 		-- draw the money hud 
 	hook.Add( "HUDPaint", "CStrike_MoneyHUD", function()
 		local ply = LocalPlayer()
-		draw.RoundedBox( 5 , ScrW() * 0.9, ScrH() * 0.85, 150, 50, Color(0, 0, 0, 128) )
-		draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)) .. " $ ", "DermaLarge", ScrW() * 0.95, ScrH() * 0.86, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
+		if IsValid(ply) and ply:Alive() then
+			draw.RoundedBox( 5 , ScrW() * 0.9, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 128) )
+			draw.DrawText( "$", "DermaLarge", ScrW() * 0.915, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
+			draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "DermaLarge", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
+		end
 	end)
 end
 
