@@ -1,11 +1,28 @@
 if CLIENT then
-		-- draw the money hud 
+	-- draw the money hud 
+	
+	surface.CreateFont( "CStrike_MoneyFont", {
+		font		= "HalfLife2",
+		size		= 32,
+		weight		= 500,
+		extended	= false,
+		additive	= true,
+	} )
+	
+	surface.CreateFont( "CStrike_MoneyFont_Glyph", {
+		font		= "Verdana",
+		size		= 14,
+		weight		= 1000,
+		extended	= true,
+		additive	= false,
+	} )
+	
 	hook.Add( "HUDPaint", "CStrike_MoneyHUD", function()
 		local ply = LocalPlayer()
 		if IsValid(ply) and ply:Alive() then
-			draw.RoundedBox( 5 , ScrW() * 0.9, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 128) )
-			draw.DrawText( "$", "DermaLarge", ScrW() * 0.915, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
-			draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "DermaLarge", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
+			draw.RoundedBox( 5 , ScrW() * 0.9006, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 76) )
+			draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
+			draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
 		end
 	end)
 end
