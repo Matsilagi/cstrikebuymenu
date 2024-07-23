@@ -4,7 +4,7 @@ if CLIENT then
 	surface.CreateFont( "CStrike_MoneyFont", {
 		font		= "HalfLife2",
 		size		= 32,
-		weight		= 500,
+		weight		= 1000,
 		extended	= false,
 		additive	= true,
 	} )
