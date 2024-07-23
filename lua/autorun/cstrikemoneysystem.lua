@@ -1,5 +1,6 @@
 if CLIENT then
-	-- draw the money hud
+	-- draw the money hud 
+	
 	surface.CreateFont( "CStrike_MoneyFont", {
 		font		= "HalfLife2",
 		size		= 32,
@@ -16,10 +17,10 @@ if CLIENT then
 		additive	= false,
 	} )
 	
-	if GAMEMODE_NAME == "zombiesurvival" then
-		hook.Add( "HUDPaint", "CStrike_MoneyHUD_ZS", function()
-			local ply = LocalPlayer()
-			if IsValid(ply) and ply:Alive() then
+	hook.Add( "HUDPaint", "CStrike_MoneyHUD", function()
+		local ply = LocalPlayer()
+		if IsValid(ply) and ply:Alive() then
+			if GAMEMODE_NAME == "zombiesurvival" then
 				if ply:Team() == TEAM_HUMAN and ply:GetNW2Int("cstrike_money",0) > 0 and not ENDROUND then
 					draw.DrawText( "Money: $", "HUDFontSmallAA", ScrW() * 0.028, ScrH() * 0.875, Color(0, 150, 0, 255), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "HUDFontSmallAA", ScrW() * 0.0562, ScrH() * 0.873, Color(0, 150, 0, 255), TEXT_ALIGN_LEFT )
@@ -29,12 +30,7 @@ if CLIENT then
 				else
 					return
 				end
-			end
-		end)
-	else
-		hook.Add( "HUDPaint", "CStrike_MoneyHUD", function()
-			local ply = LocalPlayer()
-			if IsValid(ply) and ply:Alive() then
+			else
 				draw.RoundedBox( 5 , ScrW() * 0.9006, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 76) )
 				if ply:GetNW2Int("cstrike_money",0) > 0 then
 					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
@@ -44,8 +40,8 @@ if CLIENT then
 					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 255, 0, 0, 255 ), TEXT_ALIGN_RIGHT )
 				end
 			end
-		end)
-	end
+		end
+	end)
 end
 
 if SERVER then
