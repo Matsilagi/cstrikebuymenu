@@ -21,8 +21,13 @@ if CLIENT then
 		local ply = LocalPlayer()
 		if IsValid(ply) and ply:Alive() then
 			draw.RoundedBox( 5 , ScrW() * 0.9006, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 76) )
-			draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
-			draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
+			if ply:GetNW2Int("cstrike_money",0) > 0 then
+				draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
+				draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
+			else
+				draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 255, 0, 0, 255 ), TEXT_ALIGN_CENTER )
+				draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 255, 0, 0, 255 ), TEXT_ALIGN_RIGHT )
+			end
 		end
 	end)
 end
