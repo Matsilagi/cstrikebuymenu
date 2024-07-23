@@ -1803,13 +1803,6 @@ end
 
 if CLIENT then
 
-	-- draw the money hud 
-	hook.Add( "HUDPaint", "CStrike_Money", function()
-		local ply = LocalPlayer()
-		draw.RoundedBox( 5 , ScrW() * 0.9, ScrH() * 0.85, 150, 50, Color(0, 0, 0, 128) )
-		draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)) .. " $ ", "DermaLarge", ScrW() * 0.95, ScrH() * 0.86, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
-	end)
-
 	local ERRORICON = Material("entities/unknown.png", "mips smooth")
 	local cvar_closeafterbuy = CreateClientConVar("csbuymenu_closeafterbuy", 2, true, false) -- 0 Don't Close, 1 Close, 2 Don't Close & Return To Main
 	local cvar_alwaysquit = CreateClientConVar("csbuymenu_alwaysquit", 0, true, false)
