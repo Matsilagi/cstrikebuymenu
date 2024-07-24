@@ -1761,7 +1761,6 @@ csBuyMenu.Categories = {
 			"equip_decoy",
 			"equip_molotov",
 			"equip_incgrenade",
-			"equip_taser",
 			"equip_tagrenade",
 			"equip_bumpmine",
 			"equip_breach",
@@ -1775,6 +1774,7 @@ csBuyMenu.Categories = {
 		Items = {
 			"kevlar",
 			"kev_helm",
+			"equip_taser",
 			"equip_defuse",
 			"equip_balshield",
 			"equip_riotshield",
