@@ -33,11 +33,11 @@ if CLIENT then
 			else
 				draw.RoundedBox( 5 , ScrW() * 0.885, ScrH() * 0.82, 180, 50, Color(0, 0, 0, 76) )
 				if ply:GetNW2Int("cstrike_money",0) > 0 then
-					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
-					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
+					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 32, 255, 32, 100 ), TEXT_ALIGN_CENTER )
+					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 32, 255, 32, 128 ), TEXT_ALIGN_RIGHT )
 				else
-					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 255, 0, 0, 255 ), TEXT_ALIGN_CENTER )
-					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 255, 0, 0, 255 ), TEXT_ALIGN_RIGHT )
+					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 180, 0, 0, 230 ), TEXT_ALIGN_CENTER )
+					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 180, 0, 0, 230 ), TEXT_ALIGN_RIGHT )
 				end
 			end
 		end
