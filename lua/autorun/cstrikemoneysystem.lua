@@ -11,7 +11,7 @@ if CLIENT then
 	
 	surface.CreateFont( "CStrike_MoneyFont_Glyph", {
 		font		= "Verdana",
-		size		= 14,
+		size		= 16,
 		weight		= 1000,
 		extended	= true,
 		additive	= false,
@@ -31,12 +31,12 @@ if CLIENT then
 					return
 				end
 			else
-				draw.RoundedBox( 5 , ScrW() * 0.9006, ScrH() * 0.82, 150, 50, Color(0, 0, 0, 76) )
+				draw.RoundedBox( 5 , ScrW() * 0.885, ScrH() * 0.82, 180, 50, Color(0, 0, 0, 76) )
 				if ply:GetNW2Int("cstrike_money",0) > 0 then
-					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
+					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 100, 250, 50, 255 ), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 100, 250, 50, 255 ), TEXT_ALIGN_RIGHT )
 				else
-					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.923, ScrH() * 0.8416, Color( 255, 0, 0, 255 ), TEXT_ALIGN_CENTER )
+					draw.DrawText( "MONEY", "CStrike_MoneyFont_Glyph", ScrW() * 0.9056, ScrH() * 0.8416, Color( 255, 0, 0, 255 ), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring(ply:GetNW2Int("cstrike_money",0)), "CStrike_MoneyFont", ScrW() * 0.969, ScrH() * 0.83, Color( 255, 0, 0, 255 ), TEXT_ALIGN_RIGHT )
 				end
 			end
