@@ -31,6 +31,7 @@ csBuyMenu.Items = {
 			return (player:Armor() < 100)
 		end,
 		Price = 650,
+		Reason = "You are already wearing a Kevlar Vest.",
 		Trivia = {
 			{ "Price", ": $650" },
 			{ "Protects your torso against projectiles", "" },
@@ -52,9 +53,10 @@ csBuyMenu.Items = {
 			return true -- successful, deduct money
 		end,
 		CanBuy = function(player, item, class)
-			return (player:Armor() < 100)
+			if (player:Armor() <= 100) and !player:HasHelmet() or (player:Armor() < 100) and player:HasHelmet() then return true else return false end
 		end,
 		Price = 1000,
+		Reason = "You are already fully armored.",
 		Trivia = {
 			{ "Price", ": $1000" },
 			{ "Protects your head and torso against projectiles.", "" },
@@ -70,6 +72,7 @@ csBuyMenu.Items = {
 		CanBuy = function(player, item, class)
 			return not player:HasDefuser()
 		end,
+		Reason = "You already have a defuse kit.",
 		Price = 400,
 		Trivia = {
 			{ "Price", ": $400" },
@@ -147,6 +150,7 @@ csBuyMenu.Items = {
 			end
 		end,
 		Price = 800,
+		Reason = "The currently held item can't be refilled",
 		Trivia = {
 			{ "Price", ": $800" },
 			{ "Fully refills currently held weapon. Doesn't apply for Grenades or Equipment.", "" },
@@ -195,6 +199,7 @@ csBuyMenu.Items = {
 			end
 		end,
 		Price = 400,
+		Reason = "The currently held item can't be refilled or you have enough ammo.",
 		Trivia = {
 			{ "Price", ": $400" },
 			{ "Refills the currently held weapon partially. Doesn't apply for Grenades or Equipment.", "" },
@@ -211,6 +216,7 @@ csBuyMenu.Items = {
 		CanBuy = function(player, item, class)
 			if player:DZ_ENTS_HasEquipment(DZ_ENTS_EQUIP_EXOJUMP) then return false else return true end
 		end,
+		Reason = "You already have Exo-Jump Boots equipped.",
 		Price = 10000,
 		Trivia = {
 			{ "Price", ": $10000" },
@@ -228,6 +234,7 @@ csBuyMenu.Items = {
 		CanBuy = function(player, item, class)
 			if player:DZ_ENTS_HasEquipment(DZ_ENTS_EQUIP_PARACHUTE) then return false else return true end
 		end,
+		Reason = "You already have a parachute equipped.",
 		Price = 12000,
 		Trivia = {
 			{ "Price", ": $12000" },
@@ -1094,6 +1101,16 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": ???"},
 			{"A protection device designed to deflect or absorb ballistic damage and help protect the carrier from an array of projectile calibers.", ""},
 		},
+		CanBuy = function(player,item,class)
+			local can_buy = true
+			for _, w in ipairs(player:GetWeapons()) do
+				if w and w.IsSWCSWeapon and w.IsShield then
+					can_buy = false
+				end
+			end
+			return can_buy
+		end,
+		Reason = "You already have a Shield.",
 		Price = 1100,		
 	},
 	["equip_riotshield"] = {
@@ -1104,6 +1121,16 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": ???"},
 			{"A protection device designed to deflect or absorb ballistic damage and help protect the carrier from an array of projectile calibers.", ""},
 		},
+		CanBuy = function(player,item,class)
+			local can_buy = true
+			for _, w in ipairs(player:GetWeapons()) do
+				if w and w.IsSWCSWeapon and w.IsShield then
+					can_buy = false
+				end
+			end
+			return can_buy
+		end,
+		Reason = "You already have a Shield.",
 		Price = 1100,		
 	},
 	["equip_c4"] = {
@@ -2154,6 +2181,9 @@ if SERVER then
 		if Classinfo.CanBuy then
 			if !Classinfo.CanBuy( ply, Classinfo, Classname ) then
 				ply:ChatPrint("You can't buy " .. Classname .. ".")
+				if Classinfo.Reason then
+					ply:ChatPrint("Reason: " .. Classinfo.Reason)
+				end
 				ply:EmitSound(Sound("buymenu/deny.wav"))
 				return
 			end
