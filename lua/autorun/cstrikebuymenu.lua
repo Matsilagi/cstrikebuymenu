@@ -1,6 +1,40 @@
 
 csBuyMenu = {}
 
+sound.Add({
+	name = "CStrike.Buymenu_Purchase",
+	channel = CHAN_STATIC,
+	level = 110,
+	volume = 0.4,
+	sound = "buymenu/radial_menu_buy_03.wav"
+})
+
+sound.Add({
+	name = "CStrike.Buymenu_failure",
+	channel = CHAN_STATIC,
+	level = 110,
+	volume = 1.0,
+	sound = "buymenu/weapon_cant_buy.wav"
+})
+
+sound.Add({
+	name = "CStrike.Buymenu_PickupWeapon",
+	channel = CHAN_AUTO,
+	soundlevel = 70,
+	pitch = 100,
+	volume = 1.0,
+	wave = "buymenu/pickup_weapon_02.wav"
+})
+
+sound.Add({
+	name = "CStrike.Buymenu_PickupNade",
+	channel = CHAN_AUTO,
+	soundlevel = 70,
+	pitch = 100,
+	volume = 1.0,
+	wave = "buymenu/pickup_grenade_03.wav"
+})
+
 local function Ammo_Buy(player, item, class)
 	local ammoid = game.GetAmmoID(item.AmmoType)
 	local amountwecangive = item.AmmoMaximum - player:GetAmmoCount(ammoid)
@@ -981,7 +1015,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": United States"},
 			{"When thrown, the incendiary grenade releases a high-temperature chemical reaction capable of burning anyone within its wide blast radius.", ""},
 		},	
-		Price = 500,			
+		Price = 500,	
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_hegrenade"] = {
 		NiceName = "HE Grenade",
@@ -992,6 +1027,7 @@ csBuyMenu.Items = {
 			{"The high explosive fragmentation grenade administers high damage through a wide area, making it ideal for clearing out hostile rooms.", ""},
 		},
 		Price = 300,
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_flashbang"] = {
 		NiceName = "Flashbang",
@@ -1001,7 +1037,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": United States"},
 			{"The non-lethal flashbang grenade temporarily blinds anybody within its concussive blast, making it perfect for flushing out closed-in areas. Its loud explosion also temporarily masks the sound of footsteps.", ""},
 		},
-		Price = 300,		
+		Price = 300,	
+		PickupSound = "CStrike.Buymenu_PickupNade"		
 	},
 	["equip_smokegrenade"] = {
 		NiceName = "Smoke Grenade",
@@ -1011,7 +1048,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": United States"},
 			{"The smoke grenade creates a medium-area smoke screen. It can effectively hide your team from snipers, or even just create a useful distraction.", ""},
 		},
-		Price = 300,			
+		Price = 300,	
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_decoy"] = {
 		NiceName = "Decoy Grenade",
@@ -1021,7 +1059,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": United States"},
 			{"When thrown, the decoy grenade emulates the sound of the most powerful weapon you are carrying, creating the illusion of additional supporting forces.", ""},
 		},
-		Price = 50,		
+		Price = 50,	
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_molotov"] = {
 		NiceName = "Molotov Cocktail",
@@ -1052,6 +1091,7 @@ csBuyMenu.Items = {
 			{"The Tactical Awareness Grenade uses Sonar technology to map the surfaces it hits based on sound. When exploded, any nearby targets gets marked on the player's view.", ""},
 		},
 		Price = 100,
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_breach"] = {
 		NiceName = "Breach Charge",
@@ -1062,6 +1102,7 @@ csBuyMenu.Items = {
 			{"A remotely-detonated package of explosives. With a smaller payload than the C4, those can be useful to protect entrances, open doors or even liquify small targets.", ""},
 		},
 		Price = 650,	
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_bumpmine"] = {
 		NiceName = "Bump Mine",
@@ -1082,6 +1123,7 @@ csBuyMenu.Items = {
 			{"A vial containing Adrenaline and other healing chemicals with fast-acting effects. Injection takes effect shortly after use.", ""},
 		},
 		Price = 400,
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_dz_medishot"] = {
 		NiceName = "Medi-Shot (DangerZone)",
@@ -1092,6 +1134,7 @@ csBuyMenu.Items = {
 			{"A vial containing Adrenaline and other healing chemicals with fast-acting effects. Injection takes effect shortly after use.", ""},
 		},
 		Price = 400,
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["equip_balshield"] = {
 		NiceName = "Ballistic Shield",
@@ -1141,7 +1184,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": ???"},
 			{"A homemade time-detonated payload of explosives. Upon activation, it will detonate after 30 seconds, unless defused.", ""},
 		},
-		Price = 16000,			
+		Price = 16000,	
+		PickupSound = "CStrike.Buymenu_PickupNade"		
 	},
 	["misc_snowball"] = {
 		NiceName = "Snowball",
@@ -1152,7 +1196,8 @@ csBuyMenu.Items = {
 			{"Country of Origin", ": ???"},
 			{"A harmless snowball. Made of water, in cold weather. Spread the jolly spirit around!", ""},
 		},
-		Price = 25,			
+		Price = 25,		
+		PickupSound = "CStrike.Buymenu_PickupNade"
 	},
 	["tool_axe"] = {
 		NiceName = "Axe",
@@ -2173,7 +2218,7 @@ if SERVER then
 		local Classinfo = csBuyMenu.Items[Classname]
 		if !Classinfo then return end
 		local plymoney = ply:GetNW2Int("cstrike_money",0)
-		if Classinfo.Price > plymoney then ply:ChatPrint("Not enough funds to buy this item!") ply:EmitSound(Sound("buymenu/deny.wav")) return end
+		if Classinfo.Price > plymoney then ply:ChatPrint("Not enough funds to buy this item!") ply:EmitSound("CStrike.Buymenu_failure") return end
 
 		local DeductMoney = true
 		local finalmoney
@@ -2184,13 +2229,13 @@ if SERVER then
 				if Classinfo.Reason then
 					ply:ChatPrint("Reason: " .. Classinfo.Reason)
 				end
-				ply:EmitSound(Sound("buymenu/deny.wav"))
+				ply:EmitSound("CStrike.Buymenu_failure")
 				return
 			end
 		else
 			if ply:HasWeapon(Classinfo.Class) then
 				ply:ChatPrint("You already own this weapon.")
-				ply:EmitSound(Sound("buymenu/deny.wav"))
+				ply:EmitSound("CStrike.Buymenu_failure")
 				return
 			end
 		end
@@ -2209,10 +2254,20 @@ if SERVER then
 				ply:SetNW2Int("cstrike_money",finalmoney)
 			end
 			ply:ChatPrint("Purchase complete, deducted $" .. DeductMoney .. "")
-			ply:EmitSound(Sound("buymenu/buy.wav"))
+			ply:EmitSound(Sound("CStrike.Buymenu_Purchase"))
+			if !Classinfo.PickupSound then
+				ply:EmitSound(Sound("CStrike.Buymenu_PickupWeapon"))
+			else
+				ply:EmitSound(Sound(Classinfo.PickupSound))
+			end
 		else
 			ply:ChatPrint("Purchase complete, you haven't been charged")
-			ply:EmitSound(Sound("buymenu/buy.wav"))
+			ply:EmitSound(Sound("CStrike.Buymenu_Purchase"))
+			if !Classinfo.PickupSound then
+				ply:EmitSound(Sound("CStrike.Buymenu_PickupWeapon"))
+			else
+				ply:EmitSound(Sound(Classinfo.PickupSound))
+			end
 		end
 	end)
 end
