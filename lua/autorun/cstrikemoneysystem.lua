@@ -18,6 +18,7 @@ if CLIENT then
 	} )
 	
 	hook.Add( "HUDPaint", "CStrike_MoneyHUD", function()
+		if hook.Run('CStrike_MoneyHUD') then return end
 		local ply = LocalPlayer()
 		if IsValid(ply) and ply:Alive() then
 			if GAMEMODE_NAME == "zombiesurvival" then
